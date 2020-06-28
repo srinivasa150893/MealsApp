@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import './category_meals_screen.dart';
-import './categories_screen.dart';
+import './screens/category_meals_screen.dart';
+import './screens/categories_screen.dart';
+import './screens/meal_detail_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,30 +35,34 @@ class MyApp extends StatelessWidget {
         //   )
         // ),
         textTheme: ThemeData.light().textTheme.copyWith(
-          bodyText1: TextStyle(
-            color: Color.fromRGBO(20, 51, 51, 1),
-          ),
-          bodyText2: TextStyle(
-            color: Color.fromRGBO(20, 51, 51, 1),
-
-          ),
-
-          caption: TextStyle(
-            fontSize: 20,
-            fontFamily: 'RobotoCondensed',
-            fontWeight: FontWeight.bold,
-
-          )
-
-        ),
+            bodyText1: TextStyle(
+              color: Color.fromRGBO(20, 51, 51, 1),
+            ),
+            bodyText2: TextStyle(
+              color: Color.fromRGBO(20, 51, 51, 1),
+            ),
+            caption: TextStyle(
+              fontSize: 20,
+              fontFamily: 'RobotoCondensed',
+              fontWeight: FontWeight.bold,
+            )),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-     // home: CategoriesScreen(),
-     initialRoute: '/',// default is '/'
+      // home: CategoriesScreen(),
+      initialRoute: '/', // default is '/'
       routes: {
-        '/':(ctx) => CategoriesScreen(),
+        '/': (ctx) => CategoriesScreen(),
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+       MealDeatilScreen.routeName: (ctx) => MealDeatilScreen(),
       },
+      // onGenerateRoute: (settings){
+      //   print(settings.arguments);
+      //   return MaterialPageRoute(builder: (ctx)=> CategoryMealsScreen());
+      // },
+      onUnknownRoute: (settings){
+        return MaterialPageRoute(builder: (ctx) =>CategoriesScreen() );
+      },
+      
     );
   }
 }
