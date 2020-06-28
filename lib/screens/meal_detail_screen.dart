@@ -12,18 +12,18 @@ class MealDeatilScreen extends StatelessWidget {
     );
   }
 
-  Widget buildContainerTile(Widget child){
+  Widget buildContainerTile(Widget child) {
     return Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(10),
-            height: 150,
-            width: 300,
-            child: child);
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        margin: EdgeInsets.all(10),
+        padding: EdgeInsets.all(10),
+        height: 150,
+        width: 300,
+        child: child);
   }
 
   @override
@@ -34,35 +34,49 @@ class MealDeatilScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('${selectedMeal.title}'),
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: 300,
-            width: double.infinity,
-            child: Image.network(
-              selectedMeal.imageUrl,
-              fit: BoxFit.cover,
-            ),
-          ),
-          buildSectionTile(context, 'Ingredients'),
-          buildContainerTile( 
-            ListView.builder(
-              itemBuilder: (ctx, index) => Card(
-                color: Theme.of(context).accentColor,
-                child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: Text(
-                      selectedMeal.ingredients[index],
-                    )),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 300,
+              width: double.infinity,
+              child: Image.network(
+                selectedMeal.imageUrl,
+                fit: BoxFit.cover,
               ),
-              itemCount: selectedMeal.ingredients.length,
             ),
-          ),
-          buildSectionTile(context, 'Steps'),
-          buildContainerTile(
-           Row()
-          )
-        ],
+            buildSectionTile(context, 'Ingredients'),
+            buildContainerTile(
+              ListView.builder(
+                itemBuilder: (ctx, index) => Card(
+                  color: Theme.of(context).accentColor,
+                  child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      child: Text(
+                        selectedMeal.ingredients[index],
+                      )),
+                ),
+                itemCount: selectedMeal.ingredients.length,
+              ),
+            ),
+            buildSectionTile(context, 'Steps'),
+            buildContainerTile(ListView.builder(
+              itemBuilder: (ctx, index) => Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: CircleAvatar(
+                      child: Text('# ${index + 1}'),
+                    ),
+                    title: Text(selectedMeal.steps[index]),
+                  ),
+                  Divider(),
+                ],
+              ),
+              itemCount: selectedMeal.steps.length,
+            ))
+          ],
+        ),
       ),
     );
   }
